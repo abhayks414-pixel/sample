@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>simple · interface</title>
+  <!-- Clean, minimal, and slightly playful style -->
+  <style>
+    /* ----- global reset & base ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f7fb;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      line-height: 1.5;
+      color: #1e293b;
+    }
+
+    /* ----- main card / interface container ----- */
+    .interface {
+      max-width: 720px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 2.5rem;
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.12), 0 8px 24px -6px rgba(0, 0, 0, 0.05);
+      padding: 2.5rem 2.8rem;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(2px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    /* ----- header section ----- */
+    .interface-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem 0.75rem;
+      margin-bottom: 2.2rem;
+      border-bottom: 2px dashed #e9edf2;
+      padding-bottom: 1.5rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .brand-icon {
+      background: #dbeafe;
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: #2563eb;
+      box-shadow: 0 4px 8px rgba(37, 99, 235, 0.08);
+      transition: 0.2s;
+    }
+
+    .brand-icon:hover {
+      background: #bfdbfe;
+      transform: scale(0.97);
+    }
+
+    .brand h1 {
+      font-size: 1.7rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      background: linear-gradient(145deg, #0b1e33, #1e3a5f);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .badge {
+      background: #eef2ff;
+      color: #4338ca;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.3rem 0.9rem;
+      border-radius: 40px;
+      letter-spacing: 0.3px;
+      border: 1px solid #c7d2fe;
+      white-space: nowrap;
+    }
+
+    /* ----- main content: cards / modules ----- */
+    .main-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background: #fafcff;
+      border-radius: 1.8rem;
+      padding: 1.5rem 1.8rem;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.02), 0 6px 12px -8px rgba(0, 0, 0, 0.06);
+      border: 1px solid #edf2f7;
+      transition: border 0.15s ease, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      border-color: #d9e2ef;
+      box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.08);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .card-header .emoji {
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+
+    .card-header h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #0f2b44;
+      letter-spacing: -0.01em;
+    }
+
+    .card-header .pill {
+      margin-left: auto;
+      background: #e6edf8;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: #1f3a63;
+      border: 1px solid #d0ddee;
+    }
+
+    /* ----- message / notification row ----- */
+    .message-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.8rem 1.2rem;
+    }
+
+    .message-row .avatar {
+      background: #bfdbfe;
+      width: 44px;
+      height: 44px;
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #1e3a5f;
+      flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+
+    .message-content {
+      flex: 1;
+    }
+
+    .message-content .msg-title {
+      font-weight: 600;
+      color: #0b263f;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.3rem 0.6rem;
+    }
+
+    .message-content .msg-title span {
+      font-weight: 400;
+      font-size: 0.9rem;
+      color: #4a5a72;
+    }
+
+    .message-content p {
+      color: #2d4059;
+      font-size: 0.95rem;
+      margin-top: 0.1rem;
+    }
+
+    .message-time {
+      font-size: 0.7rem;
+      color: #6d7b91;
+      background: #f1f5f9;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      white-space: nowrap;
+      border: 1px solid #e2e8f0;
+    }
+
+    /* ----- quick action buttons (simple) ----- */
+    .action-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 0.6rem;
+    }
+
+    .btn {
+      border: none;
+      background: #eef3f9;
+      padding: 0.5rem 1.4rem;
+      border-radius: 60px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: #1f3a5f;
+      cursor: default;
+      transition: 0.15s ease;
+      border: 1px solid transparent;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .btn-primary {
+      background: #1e3a5f;
+      color: white;
+      box-shadow: 0 4px 8px -2px rgba(30, 58, 95, 0.15);
+      border: 1px solid #1a3355;
+    }
+
+    .btn-primary:hover {
+      background: #143049;
+      transform: scale(0.97);
+      box-shadow: 0 2px 6px -2px #14304940;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #ccd9e9;
+      color: #1f3a5f;
+    }
+
+    .btn-outline:hover {
+      background: #f1f7ff;
+      border-color: #a9bdd8;
+    }
+
+    .btn-icon {
+      background: transparent;
+      border: 1px solid #e2eaf3;
+      padding: 0.5rem 0.9rem;
+      border-radius: 40px;
+      color: #2d4059;
+      font-size: 0.9rem;
+    }
+
+    .btn-icon:hover {
+      background: #eef4fc;
+      border-color: #b7cbdf;
+    }
+
+    /* ----- simple divider / meta ----- */
+    .divider {
+      margin: 0.8rem 0 1.2rem;
+      height: 1px;
+      background: linear-gradient(to right, #e4ebf5, transparent);
+    }
+
+    /* ----- footer ----- */
+    .interface-footer {
+      margin-top: 1rem;
+      padding-top: 1.5rem;
+      border-top: 2px dashed #e9edf2;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.8rem 1.2rem;
+      font-size: 0.85rem;
+      color: #5a6f87;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.2rem;
+    }
+
+    .footer-links a {
+      color: #3d5a78;
+      text-decoration: none;
+      border-bottom: 1px dotted transparent;
+      transition: 0.15s;
+      font-weight: 470;
+    }
+
+    .footer-links a:hover {
+      border-bottom-color: #7c95b3;
+      color: #1a3250;
+    }
+
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #2e9b5e;
+      border-radius: 40px;
+      margin-right: 0.3rem;
+      box-shadow: 0 0 0 2px #e5f4eb;
+    }
+
+    /* ----- responsive touches ----- */
+    @media (max-width: 550px) {
+      .interface {
+        padding: 1.8rem 1.5rem;
+        border-radius: 2rem;
+      }
+
+      .brand h1 {
+        font-size: 1.4rem;
+      }
+
+      .card {
+        padding: 1.2rem 1.2rem;
+      }
+
+      .message-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .message-time {
+        align-self: flex-start;
+      }
+
+      .interface-footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .footer-links {
+        flex-wrap: wrap;
+        gap: 0.5rem 1rem;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .interface-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .badge {
+        align-self: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="interface" role="main">
+
+    <!-- header -->
+    <header class="interface-header">
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true">✦</div>
+        <h1>interface</h1>
+      </div>
+      <div class="badge">simple · v1</div>
+    </header>
+
+    <!-- main content -->
+    <div class="main-grid">
+
+      <!-- card: notification / message -->
+      <div class="card">
+        <div class="card-header">
+          <span class="emoji">📬</span>
+          <h2>Inbox</h2>
+          <span class="pill">2 new</span>
+        </div>
+
+        <div class="message-row">
+          <div class="avatar" aria-hidden="true">JD</div>
+          <div class="message-content">
+            <div class="msg-title">
+              J. Doe <span>• project update</span>
+            </div>
+            <p>“The new design system is ready for review — let’s sync tomorrow.”</p>
+          </div>
+          <div class="message-time">today</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="message-row">
+          <div class="avatar" style="background: #d1e0f5;" aria-hidden="true">AK</div>
+          <div class="message-content">
+            <div class="msg-title">
+              A. Kim <span>• feedback</span>
+            </div>
+            <p>“Loved the prototype! A few minor tweaks on the dashboard.”</p>
+          </div>
+          <div class="message-time">yesterday</div>
+        </div>
+
+        <div class="action-group">
+          <span class="btn btn-outline">📂 view all</span>
+          <span class="btn btn-icon">✚ new</span>
+        </div>
+      </div>
+
+      <!-- card: quick action / status -->
+      <div class="card">
+        <div class="card-header">
+          <span class="emoji">⚡</span>
+          <h2>Quick actions</h2>
+          <span class="pill">ready</span>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 0.6rem 0.8rem; margin-bottom: 0.4rem;">
+          <span class="btn btn-primary">▶ start</span>
+          <span class="btn btn-outline">📋 draft</span>
+          <span class="btn btn-icon">🔔 notify</span>
+          <span class="btn btn-icon" style="border-color: #d6e2f0;">⋯ more</span>
+        </div>
+
+        <div style="margin-top: 0.8rem; font-size: 0.9rem; color: #2c4b6e; display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;">
+          <span style="background: #e3edf9; padding: 0.15rem 0.8rem; border-radius: 30px;">
+            <span class="status-dot"></span> all systems green
+          </span>
+          <span style="color: #5d738f; font-size: 0.8rem;">· last sync 2m ago</span>
+        </div>
+      </div>
+
+      <!-- card: simple stats / meta -->
+      <div class="card" style="background: #f9fcff;">
+        <div class="card-header">
+          <span class="emoji">📊</span>
+          <h2>Today</h2>
+          <span class="pill">3 tasks</span>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 1.2rem 2.5rem;">
+          <div>
+            <div style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; color: #61768f;">views</div>
+            <div style="font-size: 1.8rem; font-weight: 600; color: #0f2b44;">1.2k</div>
+          </div>
+          <div>
+            <div style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; color: #61768f;">comments</div>
+            <div style="font-size: 1.8rem; font-weight: 600; color: #0f2b44;">24</div>
+          </div>
+          <div>
+            <div style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; color: #61768f;">status</div>
+            <div style="font-size: 1rem; font-weight: 500; color: #24634b; background: #e2f0e9; padding: 0.2rem 1rem; border-radius: 60px; display: inline-block; margin-top: 0.2rem;">active</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 1.2rem; display: flex; gap: 0.5rem;">
+          <span class="btn btn-outline" style="padding: 0.25rem 1.2rem;">📈 details</span>
+          <span class="btn btn-icon" style="padding: 0.25rem 1.2rem;">⚙️</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- footer -->
+    <footer class="interface-footer">
+      <span>© 2026 · simple interface</span>
+      <div class="footer-links">
+        <a href="#">docs</a>
+        <a href="#">status</a>
+        <a href="#">support</a>
+        <a href="#" style="display: inline-flex; align-items: center; gap: 0.2rem;">
+          <span style="font-size: 1rem;">🌱</span> fresh
+        </a>
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>
